@@ -59,6 +59,7 @@
 #include "src/common/macros.h"
 #include "src/common/node_select.h"
 #include "src/common/parse_time.h"
+#include "src/common/proc_args.h"
 #include "src/common/slurm_auth.h"
 #include "src/common/slurm_protocol_api.h"
 #include "src/common/strlcpy.h"
@@ -368,6 +369,7 @@ slurm_sprint_job_info ( job_info_t * job_ptr, int one_liner )
 	hostlist_t hl, hl_last;
 	uint32_t threads;
 	char *line_end = (one_liner) ? " " : "\n   ";
+	char *mail_user;
 
 	if (job_ptr->job_id == 0)	/* Duplicated sibling job record */
 		return NULL;
@@ -1003,6 +1005,12 @@ slurm_sprint_job_info ( job_info_t * job_ptr, int one_liner )
 		xstrcat(out, line_end);
 		xstrfmtcat(out, "TresPerTask=%s", job_ptr->tres_per_task);
 	}
+
+	/****** Line ******/
+	mail_user = job_ptr->mail_user ? job_ptr->mail_user : "";
+	xstrcat(out, line_end);
+	xstrfmtcat(out, "MailUser=%s MailType=%s", mail_user,
+		   print_mail_type(job_ptr->mail_type));
 
 	/****** END OF JOB RECORD ******/
 	if (one_liner)
