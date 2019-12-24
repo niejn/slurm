@@ -52,6 +52,7 @@ documents those changes that are of interest to users and administrators.
  -- burst_buffer/datawarp - add a set of % symbols that will be replaced by
     job details. E.g., %d will be filled in with the WorkDir for the job.
  -- Fix sacctmgr show events to support node list ranges.
+ -- Add ability to set MailType and MailUser of job with scontrol.
 
 * Changes in Slurm 19.05.6
 ==========================
